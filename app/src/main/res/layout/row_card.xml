@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="20dp">
+
+    <TextView
+        android:id="@+id/card_eventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_alignParentRight="true"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/card_eventDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/card_eventName"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:id="@+id/card_eventInterests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Programming, Cloud, Android"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/card_eventDescription"
+        android:layout_alignParentRight="true" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/card_eventTime"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Time : 5:30 pm - 9:30 pm"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+        <!--android:layout_below="@+id/card_eventLocation"-->
+        <!--android:layout_alignParentRight="true" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/card_eventAttendance"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Attendance : 15/22"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+        <!--android:layout_below="@+id/card_eventTime"-->
+        <!--android:layout_alignParentRight="true" />-->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_eventImage"
+        android:layout_alignTop="@+id/card_eventDescription"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@mipmap/ic_launcher" />
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|right"-->
+        <!--android:src="@android:drawable/ic_input_add"-->
+        <!--app:backgroundTint="@android:color/darker_gray"-->
+        <!--android:layout_below="@+id/card_eventTitle"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true" />-->
+
+
+</RelativeLayout>
