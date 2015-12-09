@@ -57,7 +57,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http"
-                    android:host="e6cf3d72.ngrok.io"
+                    android:host="a1ed13a2.ngrok.io"
                     android:pathPrefix="/home"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

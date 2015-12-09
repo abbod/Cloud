@@ -36,7 +36,7 @@ public class  CardListActivity extends Activity implements SendReceive.AsyncResp
         setContentView(R.layout.activity_list);
 
         HashMap<String,String> map = new HashMap<>();
-        map.put("url", "http://e6cf3d72.ngrok.io/userdata");
+        map.put("url", "http://a1ed13a2.ngrok.io/userdata");
         map.put("1", "OK");
         new SendReceive(CardListActivity.this).execute(map);
     }
