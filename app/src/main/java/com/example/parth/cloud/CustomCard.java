@@ -7,14 +7,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import it.gmariotti.cardslib.library.internal.Card;
 
 public class CustomCard extends Card {
 
     protected TextView tvName;
     protected TextView tvDescription;
-    protected TextView tvInterests;
-    //protected ImageView tvImage;
+    protected TextView tvHandle;
+    //protected TextView tvInterests;
+    protected ImageView tvImage;
     protected Event event;
 
 
@@ -45,12 +48,12 @@ public class CustomCard extends Card {
         //No Header
 
         //Set a OnClickListener listener
-        setOnClickListener(new OnCardClickListener() {
-            @Override
-            public void onClick(Card card, View view) {
-                Toast.makeText(getContext(), "Click Listener card=", Toast.LENGTH_LONG).show();
-            }
-        });
+//        setOnClickListener(new OnCardClickListener() {
+//            @Override
+//            public void onClick(Card card, View view) {
+//                Toast.makeText(getContext(), "Click Listener card=", Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     @Override
@@ -59,12 +62,21 @@ public class CustomCard extends Card {
         //Retrieve elements
         tvName = (TextView) parent.findViewById(R.id.card_eventName);
         tvDescription = (TextView) parent.findViewById(R.id.card_eventDescription);
-        tvInterests = (TextView) parent.findViewById(R.id.card_eventInterests);
-        //tvImage = (ImageView) parent.findViewById(R.id.card_eventImage);
+        tvHandle = (TextView) parent.findViewById(R.id.card_eventHandle);
+        //tvInterests = (TextView) parent.findViewById(R.id.card_eventInterests);
+        tvImage = (ImageView) parent.findViewById(R.id.card_eventImage);
 
-        tvName.setText(event.getEventName());
-        tvDescription.setText(event.getEventDescription());
-        tvInterests.setText(event.getEventInterests());
+        tvName.setText("Name: "+ event.getEventName());
+        String modDescription = event.getEventDescription();
+        if (modDescription.length() > 97)
+        {
+            modDescription = modDescription.substring(0,75);
+            modDescription += "...";
+        }
+        tvDescription.setText("Description: "+ modDescription);
+        tvHandle.setText("Twitter Handle: "+ event.getEventHandle());
+        //tvInterests.setText(event.getEventInterests());
         //tvImage.setImageResource(R.mipmap.ic_launcher);
+        Picasso.with(getContext()).load(event.getEventImage()).resize(70, 70).centerCrop().into(tvImage);
     }
 }

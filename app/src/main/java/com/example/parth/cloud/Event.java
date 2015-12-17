@@ -7,14 +7,16 @@ public class Event {
 
     String eventName;
     String eventDescription;
-    String eventInterests;
-    //ImageView eventImage;
+    String eventHandle;
+    //String eventInterests;
+    String eventImage;
 
-    public Event(String eventName,String eventDescription,String eventInterests){
+    public Event(String eventName,String eventDescription, String eventHandle, String eventImage){
         this.eventName = eventName;
         this.eventDescription = eventDescription;
-        this.eventInterests = eventInterests;
-        //this.eventImage = eventImage;
+        this.eventHandle = eventHandle;
+        //this.eventInterests = eventInterests;
+        this.eventImage = eventImage;
     }
 
     public String getEventName() {
@@ -31,12 +33,26 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public String getEventInterests() {
-        return eventInterests;
+    public String getEventHandle() {
+        return eventHandle;
     }
-    public void setEventInterests(String eventInterests) {
-        this.eventInterests = eventInterests;
+    public void setEventHandle(String eventHandle) {
+        this.eventHandle = eventHandle;
     }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+    public void setEventImage(String eventImage) {
+        this.eventImage = eventImage;
+    }
+
+//    public String getEventInterests() {
+//        return eventInterests;
+//    }
+//    public void setEventInterests(String eventInterests) {
+//        this.eventInterests = eventInterests;
+//    }
 
 //    public ImageView getEventImage(){
 //        return eventImage;

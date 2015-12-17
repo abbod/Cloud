@@ -41,4 +41,9 @@ dependencies {
 
     //Optional for staggered grid view
     compile 'com.github.gabrielemariotti.cards:cardslib-extra-staggeredgrid:2.1.0'
+
+    //Picasso for image load
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

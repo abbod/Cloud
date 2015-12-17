@@ -36,7 +36,7 @@ public class  CardListActivity extends Activity implements SendReceive.AsyncResp
         setContentView(R.layout.activity_list);
 
         HashMap<String,String> map = new HashMap<>();
-        map.put("url", "http://a1ed13a2.ngrok.io/userdata");
+        map.put("url", "http://affa08e4.ngrok.io/userdata");
         map.put("1", "OK");
         new SendReceive(CardListActivity.this).execute(map);
     }
@@ -59,11 +59,25 @@ public class  CardListActivity extends Activity implements SendReceive.AsyncResp
         for (int i = 0; i< countUser; i++) {
             Event event = null;
             try {
-                event = new Event(jsonArray.getJSONObject(i).getString("name"),jsonArray.getJSONObject(i).getString("description"),jsonArray.getJSONObject(i).getString("interests"));
+                event = new Event(jsonArray.getJSONObject(i).getString("name"),jsonArray.getJSONObject(i).getString("description"), jsonArray.getJSONObject(i).getString("screen_name"), jsonArray.getJSONObject(i).getString("profile_image_url"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             Card card = new CustomCard(this,event);
+
+            final int finalI = i;
+            card.setOnClickListener(new Card.OnCardClickListener() {
+                @Override
+                public void onClick(Card card, View view) {
+                    Intent profileIntent = new Intent(CardListActivity.this, Profile.class);
+                    try {
+                        profileIntent.putExtra("ClickedUserData", jsonArray.getJSONObject(finalI).toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    startActivity(profileIntent);
+                }
+            });
 
             //CardThumbnail thumb = new CardThumbnail(this);
             //thumb.setDrawableResource(listImages[i]);

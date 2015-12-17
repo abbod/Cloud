@@ -57,7 +57,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http"
-                    android:host="a1ed13a2.ngrok.io"
+                    android:host="affa08e4.ngrok.io"
                     android:pathPrefix="/home"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -72,6 +72,12 @@
         <activity android:name=".Deep">
             <intent-filter android:label="@string/app_name">
                 <action android:name="com.example.parth.cloud.DEEP"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Profile">
+            <intent-filter android:label="@string/app_name">
+                <action android:name="com.example.parth.cloud.PROFILE"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
