@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "com.example.parth.cloud"
         minSdkVersion 15
@@ -20,30 +20,29 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.2.1'
     //Fancy buttons
-    compile 'com.github.medyo:fancybuttons:1.5@aar'
     //Volley
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     //Core
-    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
-
     //Optional for built-in cards
-    compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
-
     //Optional for RecyclerView
-    compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.1.0'
-
     //Optional for staggered grid view
-    compile 'com.github.gabrielemariotti.cards:cardslib-extra-staggeredgrid:2.1.0'
-
     //Picasso for image load
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    //circular image
+    
 
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.github.medyo:fancybuttons:1.5@aar'
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
+    compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
+    compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.1.0'
+    compile 'com.github.gabrielemariotti.cards:cardslib-extra-staggeredgrid:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.android.support:design:22.2.1'
 }

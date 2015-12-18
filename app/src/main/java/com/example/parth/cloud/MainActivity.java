@@ -1,10 +1,13 @@
 package com.example.parth.cloud;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements SendReceive.Async
             @Override
             public void onClick(View v) {
                 HashMap<String, String> map = new HashMap<>();
-                map.put("url", "http://affa08e4.ngrok.io/signin");
+                map.put("url", "http://2a7b209c.ngrok.io/signin");
                 map.put("1", "OK");
                 new SendReceive(MainActivity.this).execute(map);
             }
@@ -32,6 +35,15 @@ public class MainActivity extends AppCompatActivity implements SendReceive.Async
     public void processFinish(String response) {
         System.out.println("Received response");
         System.out.println("Response: " + response);
+
+        Context context = this;
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                "com.example.parth.cloud.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("TwitterURL", response);
+        editor.commit();
+
         Intent openLogin = new Intent("" + "com.example.parth.cloud.WEBRENDER");
         openLogin.putExtra("TwitterPage",response);
         System.out.println("Response: " + response);

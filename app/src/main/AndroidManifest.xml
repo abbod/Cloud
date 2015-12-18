@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.parth.cloud">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,13 +39,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".AsyncronoustaskAndroidExample">
-            <intent-filter>
-                <action android:name="com.example.parth.cloud.ASYNC" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity android:name=".ConnTest">
             <intent-filter>
                 <action android:name="com.example.parth.cloud.CONNTEST" />
@@ -54,11 +49,15 @@
         <activity android:name=".CardListActivity">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http"
-                    android:host="affa08e4.ngrok.io"
-                    android:pathPrefix="/home"/>
+
+                <data
+                    android:host="2a7b209c.ngrok.io"
+                    android:pathPrefix="/home"
+                    android:scheme="http" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -69,15 +68,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Deep">
+        <activity android:name=".UserGraph">
             <intent-filter android:label="@string/app_name">
-                <action android:name="com.example.parth.cloud.DEEP"/>
+                <action android:name="com.example.parth.cloud.USERGRAPH" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".Profile">
             <intent-filter android:label="@string/app_name">
-                <action android:name="com.example.parth.cloud.PROFILE"/>
+                <action android:name="com.example.parth.cloud.PROFILE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".WorldGraph">
+            <intent-filter android:label="@string/app_name">
+                <action android:name="com.example.parth.cloud.WORLDGRAPH" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

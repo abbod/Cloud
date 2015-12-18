@@ -10,14 +10,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class  CardListActivity extends Activity implements SendReceive.AsyncResponse{
+public class  CardListActivity extends AppCompatActivity implements SendReceive.AsyncResponse{
 
     int countUser = 0;
     JSONArray jsonArray;
@@ -36,15 +47,15 @@ public class  CardListActivity extends Activity implements SendReceive.AsyncResp
         setContentView(R.layout.activity_list);
 
         HashMap<String,String> map = new HashMap<>();
-        map.put("url", "http://affa08e4.ngrok.io/userdata");
-        map.put("1", "OK");
+        map.put("url", "http://2a7b209c.ngrok.io/userdata");
+        map.put("device", "mobile");
         new SendReceive(CardListActivity.this).execute(map);
     }
 
     @Override
     public void processFinish(String response) {
 
-        System.out.println("Reaching here: "+ response);
+        System.out.println("Reaching here: " + response);
         try {
             JSONObject userJsonData = new JSONObject(response);
             jsonArray = userJsonData.getJSONArray("result");
@@ -54,7 +65,7 @@ public class  CardListActivity extends Activity implements SendReceive.AsyncResp
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<Card> cards = new ArrayList<>();
 
         for (int i = 0; i< countUser; i++) {
             Event event = null;
@@ -93,4 +104,44 @@ public class  CardListActivity extends Activity implements SendReceive.AsyncResp
             listView.setAdapter(mCardArrayAdapter);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_graph, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.dashboard:
+                //Toast.makeText(this,"Works",Toast.LENGTH_LONG).show();
+                SharedPreferences sharedPref = this.getSharedPreferences(
+                        "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
+                String url = sharedPref.getString("TwitterURL","null");
+                //Toast.makeText(this,url,Toast.LENGTH_LONG).show();
+                Intent myintent2 = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(myintent2);
+                //Intent first = new Intent("" + "com.example.parth.cloud.VIEW");
+                //startActivity(first);
+                return true;
+            case R.id.user_graph:
+                //Toast.makeText(this,"Works",Toast.LENGTH_LONG).show();
+                Intent second = new Intent("" + "com.example.parth.cloud.USERGRAPH");
+                startActivity(second);
+                return true;
+            case R.id.overall_graph:
+                //Toast.makeText(this,"Works",Toast.LENGTH_LONG).show();
+                Intent third = new Intent("" + "com.example.parth.cloud.WORLDGRAPH");
+                startActivity(third);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 }
+
