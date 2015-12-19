@@ -55,10 +55,10 @@
 
                 <data
                     android:host="2a7b209c.ngrok.io"
-                    android:pathPrefix="/home"
+                    android:pathPrefix="/auth"
                     android:scheme="http" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
             </intent-filter>
         </activity>
         <activity android:name=".WebRender">

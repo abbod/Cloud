@@ -26,7 +26,10 @@ public class UserGraph extends AppCompatActivity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl("http://2a7b209c.ngrok.io/test");
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
+        String url = sharedPref.getString("UserId","null");
+        mWebView.loadUrl("http://2a7b209c.ngrok.io/twitterGraph?device=web&user_id="+url);
     }
 
     @Override

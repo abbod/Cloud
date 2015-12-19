@@ -44,65 +44,87 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        Intent i = getIntent();
+        String strdata = i.getDataString();
+        System.out.println("String data "+strdata);
         setContentView(R.layout.activity_list);
 
         HashMap<String,String> map = new HashMap<>();
-        map.put("url", "http://2a7b209c.ngrok.io/userdata");
+        map.put("url", strdata);
         map.put("device", "mobile");
         new SendReceive(CardListActivity.this).execute(map);
+
+//        HashMap<String,String> map1 = new HashMap<>();
+//        map1.put("url", "http://2a7b209c.ngrok.io/userdata");
+//        map1.put("device", "mobile");
+//        new SendReceive(CardListActivity.this).execute(map1);
     }
 
     @Override
     public void processFinish(String response) {
 
-        System.out.println("Reaching here: " + response);
+        System.out.println("Response1 "+response);
         try {
             JSONObject userJsonData = new JSONObject(response);
-            jsonArray = userJsonData.getJSONArray("result");
-            countUser = jsonArray.length();
-            System.out.println(countUser);
-            System.out.println(jsonArray);
+            String user_id = userJsonData.getString("user_id");
+            Context context = this;
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    "com.example.parth.cloud.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("UserId", user_id);
+            editor.commit();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ArrayList<Card> cards = new ArrayList<>();
-
-        for (int i = 0; i< countUser; i++) {
-            Event event = null;
-            try {
-                event = new Event(jsonArray.getJSONObject(i).getString("name"),jsonArray.getJSONObject(i).getString("description"), jsonArray.getJSONObject(i).getString("screen_name"), jsonArray.getJSONObject(i).getString("profile_image_url"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Card card = new CustomCard(this,event);
-
-            final int finalI = i;
-            card.setOnClickListener(new Card.OnCardClickListener() {
-                @Override
-                public void onClick(Card card, View view) {
-                    Intent profileIntent = new Intent(CardListActivity.this, Profile.class);
-                    try {
-                        profileIntent.putExtra("ClickedUserData", jsonArray.getJSONObject(finalI).toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    startActivity(profileIntent);
-                }
-            });
-
-            //CardThumbnail thumb = new CardThumbnail(this);
-            //thumb.setDrawableResource(listImages[i]);
-            //card.addCardThumbnail(thumb);
-
-            cards.add(card);
-        }
-
-        CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
-
-        CardListView listView = (CardListView) this.findViewById(R.id.myList);
-        if (listView != null) {
-            listView.setAdapter(mCardArrayAdapter);
-        }
+//            System.out.println("Reaching here: " + response);
+//            try {
+//                JSONObject userJsonData = new JSONObject(response);
+//                jsonArray = userJsonData.getJSONArray("result");
+//                countUser = jsonArray.length();
+//                System.out.println(countUser);
+//                System.out.println(jsonArray);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            ArrayList<Card> cards = new ArrayList<>();
+//
+//            for (int i = 0; i < countUser; i++) {
+//                Event event = null;
+//                try {
+//                    event = new Event(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("description"), jsonArray.getJSONObject(i).getString("screen_name"), jsonArray.getJSONObject(i).getString("profile_image_url"));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                Card card = new CustomCard(this, event);
+//
+//                final int finalI = i;
+//                card.setOnClickListener(new Card.OnCardClickListener() {
+//                    @Override
+//                    public void onClick(Card card, View view) {
+//                        Intent profileIntent = new Intent(CardListActivity.this, Profile.class);
+//                        try {
+//                            profileIntent.putExtra("ClickedUserData", jsonArray.getJSONObject(finalI).toString());
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        startActivity(profileIntent);
+//                    }
+//                });
+//
+//                //CardThumbnail thumb = new CardThumbnail(this);
+//                //thumb.setDrawableResource(listImages[i]);
+//                //card.addCardThumbnail(thumb);
+//
+//                cards.add(card);
+//            }
+//
+//            CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
+//
+//            CardListView listView = (CardListView) this.findViewById(R.id.myList);
+//            if (listView != null) {
+//                listView.setAdapter(mCardArrayAdapter);
+//            }
     }
 
     @Override

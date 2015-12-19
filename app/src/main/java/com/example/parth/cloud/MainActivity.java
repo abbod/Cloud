@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements SendReceive.Async
             public void onClick(View v) {
                 HashMap<String, String> map = new HashMap<>();
                 map.put("url", "http://2a7b209c.ngrok.io/signin");
-                map.put("1", "OK");
+                map.put("device", "mobile");
                 new SendReceive(MainActivity.this).execute(map);
             }
         });
