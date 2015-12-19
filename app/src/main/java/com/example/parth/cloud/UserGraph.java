@@ -29,7 +29,7 @@ public class UserGraph extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
         String url = sharedPref.getString("UserId","null");
-        mWebView.loadUrl("http://2a7b209c.ngrok.io/twitterGraph?device=web&user_id="+url);
+        mWebView.loadUrl("http://2a7b209c.ngrok.io/socialGraph?device=web&user_id="+url);
     }
 
     @Override

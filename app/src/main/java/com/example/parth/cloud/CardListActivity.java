@@ -8,6 +8,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -40,6 +41,7 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
 
     int countUser = 0;
     JSONArray jsonArray;
+    JSONObject currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -53,17 +55,15 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
         map.put("url", strdata);
         map.put("device", "mobile");
         new SendReceive(CardListActivity.this).execute(map);
-
-//        HashMap<String,String> map1 = new HashMap<>();
-//        map1.put("url", "http://2a7b209c.ngrok.io/userdata");
-//        map1.put("device", "mobile");
-//        new SendReceive(CardListActivity.this).execute(map1);
     }
 
     @Override
     public void processFinish(String response) {
-
-        System.out.println("Response1 "+response);
+//        SharedPreferences sharedPref = this.getSharedPreferences(
+//                "com.example.parth.cloud.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPref.edit();
+//        editor.putString("Response", universalResponse);
+//        editor.commit();
         try {
             JSONObject userJsonData = new JSONObject(response);
             String user_id = userJsonData.getString("user_id");
@@ -74,58 +74,60 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
             editor.putString("UserId", user_id);
             editor.commit();
 
+            ArrayList<Card> cards = new ArrayList<>();
+            currentUser = userJsonData.getJSONObject("user");
+            JSONObject matchingUsers = userJsonData.getJSONObject("matchingUsers");
+            Iterator<String> keys = matchingUsers.keys();
+            while (keys.hasNext()) {
+                String key = (String) keys.next();
+                if (matchingUsers.get(key) instanceof JSONObject) {
+                    countUser++;
+                    Event event = null;
+                    JSONObject everyUser = (JSONObject) matchingUsers.get(key);
+                    final JSONObject userDetails = (JSONObject) everyUser.get("userDetails");
+                    JSONObject commonInterest = (JSONObject) everyUser.get("commonInterests");
+                    String name = userDetails.getString("name");
+                    String imageURL = userDetails.getString("profile_image_url");
+                    String screenName = userDetails.getString("screen_name");
+                    StringBuffer comInterest = new StringBuffer();
+                    Iterator<String> innerkeys = commonInterest.keys();
+                    while (innerkeys.hasNext()) {
+                        String innerkey = (String) innerkeys.next();
+                        comInterest.append(commonInterest.get(innerkey) + ", ");
+                    }
+                    comInterest.deleteCharAt(comInterest.length() - 1);
+                    String comInterestString = comInterest.toString();
+                    event = new Event(name, comInterestString, screenName, imageURL);
+                    Card card = new CustomCard(this, event);
+                    cards.add(card);
+
+                    card.setOnClickListener(new Card.OnCardClickListener() {
+                        @Override
+                        public void onClick(Card card, View view) {
+                            Intent profileIntent = new Intent(CardListActivity.this, Profile.class);
+                            profileIntent.putExtra("ClickedUserData", userDetails.toString());
+                            startActivity(profileIntent);
+                        }
+                    });
+
+                }
+            }
+            CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
+
+            CardListView listView = (CardListView) this.findViewById(R.id.myList);
+            if (listView != null) {
+                listView.setAdapter(mCardArrayAdapter);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//            System.out.println("Reaching here: " + response);
-//            try {
-//                JSONObject userJsonData = new JSONObject(response);
-//                jsonArray = userJsonData.getJSONArray("result");
-//                countUser = jsonArray.length();
-//                System.out.println(countUser);
-//                System.out.println(jsonArray);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            ArrayList<Card> cards = new ArrayList<>();
+    }
 //
 //            for (int i = 0; i < countUser; i++) {
-//                Event event = null;
-//                try {
-//                    event = new Event(jsonArray.getJSONObject(i).getString("name"), jsonArray.getJSONObject(i).getString("description"), jsonArray.getJSONObject(i).getString("screen_name"), jsonArray.getJSONObject(i).getString("profile_image_url"));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                Card card = new CustomCard(this, event);
-//
 //                final int finalI = i;
-//                card.setOnClickListener(new Card.OnCardClickListener() {
-//                    @Override
-//                    public void onClick(Card card, View view) {
-//                        Intent profileIntent = new Intent(CardListActivity.this, Profile.class);
-//                        try {
-//                            profileIntent.putExtra("ClickedUserData", jsonArray.getJSONObject(finalI).toString());
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        startActivity(profileIntent);
-//                    }
-//                });
 //
-//                //CardThumbnail thumb = new CardThumbnail(this);
-//                //thumb.setDrawableResource(listImages[i]);
-//                //card.addCardThumbnail(thumb);
-//
-//                cards.add(card);
 //            }
 //
-//            CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
-//
-//            CardListView listView = (CardListView) this.findViewById(R.id.myList);
-//            if (listView != null) {
-//                listView.setAdapter(mCardArrayAdapter);
-//            }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,14 +143,17 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
         switch (item.getItemId()) {
             case R.id.dashboard:
                 //Toast.makeText(this,"Works",Toast.LENGTH_LONG).show();
-                SharedPreferences sharedPref = this.getSharedPreferences(
-                        "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
-                String url = sharedPref.getString("TwitterURL","null");
+                //SharedPreferences sharedPref = this.getSharedPreferences(
+                //        "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
+                //String url = sharedPref.getString("TwitterURL","null");
                 //Toast.makeText(this,url,Toast.LENGTH_LONG).show();
-                Intent myintent2 = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(myintent2);
+                //Intent myintent2 = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                //startActivity(myintent2);
                 //Intent first = new Intent("" + "com.example.parth.cloud.VIEW");
                 //startActivity(first);
+                Intent profileIntent = new Intent(CardListActivity.this, Profile.class);
+                profileIntent.putExtra("ClickedUserData", currentUser.toString());
+                startActivity(profileIntent);
                 return true;
             case R.id.user_graph:
                 //Toast.makeText(this,"Works",Toast.LENGTH_LONG).show();
