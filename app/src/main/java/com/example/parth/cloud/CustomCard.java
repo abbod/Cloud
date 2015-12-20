@@ -73,7 +73,7 @@ public class CustomCard extends Card {
             modDescription = modDescription.substring(0,75);
             modDescription += "...";
         }
-        tvDescription.setText("Description: "+ modDescription);
+        tvDescription.setText("Common Interests: "+ modDescription);
         tvHandle.setText("Twitter Handle: "+ event.getEventHandle());
         //tvInterests.setText(event.getEventInterests());
         //tvImage.setImageResource(R.mipmap.ic_launcher);

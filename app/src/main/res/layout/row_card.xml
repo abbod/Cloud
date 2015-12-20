@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:gravity="end"
-        android:text="Description"
+        android:text="Common Interests"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView

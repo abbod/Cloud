@@ -2,7 +2,7 @@
 <ScrollView
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@color/primary"
+    android:background="@color/cyan"
     xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -19,17 +19,17 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Name"
+            android:gravity="center"
             android:id="@+id/profile_name"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/profile_image"
-            android:layout_alignEnd="@+id/profile_image"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="49dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="106dp"
+            android:layout_height="106dp"
             android:src="@mipmap/ic_launcher"
             app:civ_border_width="2dp"
             app:civ_border_color="#80000000"

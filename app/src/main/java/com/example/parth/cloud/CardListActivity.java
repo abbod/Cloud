@@ -32,6 +32,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,9 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
     int countUser = 0;
     JSONArray jsonArray;
     JSONObject currentUser;
+    ProgressBar pB;
+    RelativeLayout rL;
+    TextView tV;
     boolean visited = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +56,15 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
         String strdata = i.getDataString();
-        System.out.println("String data "+strdata);
+        System.out.println("String data " + strdata);
         setContentView(R.layout.activity_list);
+
+        rL = (RelativeLayout) findViewById(R.id.relative_layout);
+        rL.setVisibility(View.VISIBLE);
+        pB = (ProgressBar) findViewById(R.id.progressBar);
+        pB.setVisibility(View.VISIBLE);
+        tV = (TextView) findViewById(R.id.textViewForWait);
+        tV.setVisibility(View.VISIBLE);
 
         HashMap<String,String> map = new HashMap<>();
         map.put("url", strdata);
@@ -63,6 +75,9 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
     @Override
     public void processFinish(String response) {
         if(!visited) {
+            pB.setVisibility(View.GONE);
+            rL.setVisibility(View.GONE);
+            tV.setVisibility(View.GONE);
             try {
                 JSONObject userJsonData = new JSONObject(response);
                 String user_id = userJsonData.getString("user_id");
@@ -205,6 +220,16 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        super.onBackPressed();
+        finish();
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
     }
 }
 

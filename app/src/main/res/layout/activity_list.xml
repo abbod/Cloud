@@ -19,6 +19,32 @@
             android:id="@+id/no_matches"
             android:visibility="gone"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relative_layout">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Wait while we extract some interesting people for you!"
+                android:gravity="center"
+                android:visibility="gone"
+                android:id="@+id/textViewForWait"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="152dp" />
+
+        </RelativeLayout>
+
         <it.gmariotti.cardslib.library.view.CardListView
             android:id="@+id/myList"
             android:layout_width="match_parent"
