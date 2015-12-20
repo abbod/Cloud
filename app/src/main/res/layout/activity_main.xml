@@ -4,37 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.parth.cloud.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:textSize="50dp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:id="@+id/title"
+        android:paddingTop="20dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Twitty!!!"
-        android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/btn_spotify"
+        android:shadowColor="@android:color/holo_blue_dark"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="25"
+        />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
-        fancy:fb_borderColor="#FFFFFF"
-        fancy:fb_borderWidth="1dp"
-        fancy:fb_defaultColor="#7ab800"
-        fancy:fb_focusColor="#9bd823"
-        fancy:fb_fontIconResource="&#xf04b;"
-        fancy:fb_iconPosition="left"
-        fancy:fb_radius="30dp"
-        fancy:fb_text="Login via Twitter"
-        fancy:fb_textColor="#FFFFFF"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        >
+
+    </android.support.v4.view.ViewPager>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:paddingBottom="15dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:id="@+id/functions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/indicator_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="5dp">
+        </LinearLayout>
+
+        <Button
+            android:layout_below="@+id/indicator_container"
+            android:id="@+id/btn_spotify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/loginbutton"/>
+    </LinearLayout>
 </RelativeLayout>
