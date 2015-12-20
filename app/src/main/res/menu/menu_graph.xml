@@ -18,5 +18,9 @@
         android:id="@+id/overall_graph"
         android:title="Worldwide Graph"
         />
-
+    <item app:showAsAction="always"
+        android:icon="@drawable/ic_menu_gallery"
+        android:id="@+id/logout"
+        android:title="Logout"
+        />
 </menu>

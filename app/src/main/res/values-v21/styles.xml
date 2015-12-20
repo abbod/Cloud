@@ -6,4 +6,11 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+    <style name="Theme.MyAppTheme" parent="@android:style/Theme.Holo">
+        <item name="android:actionBarStyle">@style/Theme.MyAppTheme.ActionBar</item>
+    </style>
+
+    <style name="Theme.MyAppTheme.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">#222222</item>
+    </style>
 </resources>

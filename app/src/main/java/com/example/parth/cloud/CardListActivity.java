@@ -11,9 +11,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -42,6 +44,7 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
     int countUser = 0;
     JSONArray jsonArray;
     JSONObject currentUser;
+    boolean visited = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -59,75 +62,86 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
 
     @Override
     public void processFinish(String response) {
-//        SharedPreferences sharedPref = this.getSharedPreferences(
-//                "com.example.parth.cloud.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPref.edit();
-//        editor.putString("Response", universalResponse);
-//        editor.commit();
-        try {
-            JSONObject userJsonData = new JSONObject(response);
-            String user_id = userJsonData.getString("user_id");
-            Context context = this;
-            SharedPreferences sharedPref = context.getSharedPreferences(
-                    "com.example.parth.cloud.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("UserId", user_id);
-            editor.commit();
+        if(!visited) {
+            try {
+                JSONObject userJsonData = new JSONObject(response);
+                String user_id = userJsonData.getString("user_id");
+                Context context = this;
+                SharedPreferences sharedPref = context.getSharedPreferences(
+                        "com.example.parth.cloud.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("UserId", user_id);
+                editor.commit();
 
-            ArrayList<Card> cards = new ArrayList<>();
-            currentUser = userJsonData.getJSONObject("user");
-            JSONObject matchingUsers = userJsonData.getJSONObject("matchingUsers");
-            Iterator<String> keys = matchingUsers.keys();
-            while (keys.hasNext()) {
-                String key = (String) keys.next();
-                if (matchingUsers.get(key) instanceof JSONObject) {
-                    countUser++;
-                    Event event = null;
-                    JSONObject everyUser = (JSONObject) matchingUsers.get(key);
-                    final JSONObject userDetails = (JSONObject) everyUser.get("userDetails");
-                    JSONObject commonInterest = (JSONObject) everyUser.get("commonInterests");
-                    String name = userDetails.getString("name");
-                    String imageURL = userDetails.getString("profile_image_url");
-                    String screenName = userDetails.getString("screen_name");
-                    StringBuffer comInterest = new StringBuffer();
-                    Iterator<String> innerkeys = commonInterest.keys();
-                    while (innerkeys.hasNext()) {
-                        String innerkey = (String) innerkeys.next();
-                        comInterest.append(commonInterest.get(innerkey) + ", ");
-                    }
-                    comInterest.deleteCharAt(comInterest.length() - 1);
-                    String comInterestString = comInterest.toString();
-                    event = new Event(name, comInterestString, screenName, imageURL);
-                    Card card = new CustomCard(this, event);
-                    cards.add(card);
+                ArrayList<Card> cards = new ArrayList<>();
+                currentUser = userJsonData.getJSONObject("user");
 
-                    card.setOnClickListener(new Card.OnCardClickListener() {
-                        @Override
-                        public void onClick(Card card, View view) {
-                            Intent profileIntent = new Intent(CardListActivity.this, Profile.class);
-                            profileIntent.putExtra("ClickedUserData", userDetails.toString());
-                            startActivity(profileIntent);
+                editor.putString("User", currentUser.toString());
+                editor.commit();
+
+                JSONObject matchingUsers = userJsonData.getJSONObject("matchingUsers");
+                Iterator<String> keys = matchingUsers.keys();
+                while (keys.hasNext()) {
+                    String key = (String) keys.next();
+                    if (matchingUsers.get(key) instanceof JSONObject) {
+                        countUser++;
+                        Event event = null;
+                        JSONObject everyUser = (JSONObject) matchingUsers.get(key);
+                        final JSONObject userDetails = (JSONObject) everyUser.get("userDetails");
+                        JSONObject commonInterest = (JSONObject) everyUser.get("commonInterests");
+                        String name = userDetails.getString("name");
+                        String imageURL = userDetails.getString("profile_image_url");
+                        String screenName = userDetails.getString("screen_name");
+                        StringBuffer comInterest = new StringBuffer();
+                        Iterator<String> innerkeys = commonInterest.keys();
+                        while (innerkeys.hasNext()) {
+                            String innerkey = (String) innerkeys.next();
+                            comInterest.append(commonInterest.get(innerkey) + ", ");
                         }
-                    });
+                        comInterest.deleteCharAt(comInterest.length() - 1);
+                        String comInterestString = comInterest.toString();
+                        event = new Event(name, comInterestString, screenName, imageURL);
+                        Card card = new CustomCard(this, event);
+                        cards.add(card);
 
+                        card.setOnClickListener(new Card.OnCardClickListener() {
+                            @Override
+                            public void onClick(Card card, View view) {
+                                Intent profileIntent = new Intent(CardListActivity.this, Profile.class);
+                                profileIntent.putExtra("ClickedUserData", userDetails.toString());
+                                startActivity(profileIntent);
+                            }
+                        });
+
+                    }
                 }
-            }
-            CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
+                CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
 
-            CardListView listView = (CardListView) this.findViewById(R.id.myList);
-            if (listView != null) {
-                listView.setAdapter(mCardArrayAdapter);
+                CardListView listView = (CardListView) this.findViewById(R.id.myList);
+                if (listView != null) {
+                    listView.setAdapter(mCardArrayAdapter);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+            if(countUser == 0)
+            {
+                Toast.makeText(this,"Sorry! We have no users to recommend. Go Tweet!!!",Toast.LENGTH_LONG).show();
+                TextView noMatches = (TextView) findViewById(R.id.no_matches);
+                noMatches.setVisibility(View.VISIBLE);
+            }
+            visited = true;
+        }
+        else
+        {
+            //Toast.makeText(this,response,Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
-//
-//            for (int i = 0; i < countUser; i++) {
-//                final int finalI = i;
-//
-//            }
-//
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -165,6 +179,28 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
                 Intent third = new Intent("" + "com.example.parth.cloud.WORLDGRAPH");
                 startActivity(third);
                 return true;
+            case R.id.logout:
+                SharedPreferences sharedPref = this.getSharedPreferences(
+                        "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
+                final String user_id = sharedPref.getString("UserId", "null");
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Closing Activity")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                HashMap<String,String> map = new HashMap<>();
+                                map.put("url", "http://3bfb2be4.ngrok.io/logout");
+                                map.put("device", "mobile");
+                                map.put("user_id", user_id);
+                                new SendReceive(CardListActivity.this).execute(map);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             default:
                 return super.onOptionsItemSelected(item);
         }

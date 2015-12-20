@@ -2,6 +2,7 @@
 <ScrollView
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="@color/primary"
     xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:textColor="@color/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -40,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:textColor="@color/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -48,6 +51,7 @@
             android:id="@+id/profile_description" />
 
         <TextView
+            android:textColor="@color/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -63,6 +67,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:textColor="@color/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -70,6 +75,7 @@
             android:layout_weight="21.21"
             android:id="@+id/profile_handle" />
         <TextView
+            android:textColor="@color/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -83,6 +89,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:textColor="@color/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -90,6 +97,7 @@
             android:layout_weight="50"
             android:id="@+id/profile_friends" />
         <TextView
+            android:textColor="@color/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -102,6 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:textColor="@color/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
