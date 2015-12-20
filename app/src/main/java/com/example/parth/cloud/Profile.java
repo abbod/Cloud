@@ -38,8 +38,8 @@ public class Profile extends AppCompatActivity {
         TextView link = (TextView) findViewById(R.id.profile_link);
         TextView handle = (TextView) findViewById(R.id.profile_handle);
         TextView location = (TextView) findViewById(R.id.profile_location);
-        TextView friends = (TextView) findViewById(R.id.profile_friends);
-        TextView followers = (TextView) findViewById(R.id.profile_followers);
+        TextView friends = (TextView) findViewById(R.id.profile_friends_count);
+        TextView followers = (TextView) findViewById(R.id.profile_followers_count);
         TextView interests = (TextView) findViewById(R.id.profile_interests);
         ImageView profile_image = (ImageView) findViewById(R.id.profile_image);
 

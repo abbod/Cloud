@@ -37,7 +37,7 @@ public class WorldGraph extends AppCompatActivity implements SendReceive.AsyncRe
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
         String url = sharedPref.getString("UserId", "null");
-        mWebView.loadUrl("http://3bfb2be4.ngrok.io/twitterGraph?device=web&user_id=" + url);
+        mWebView.loadUrl("http://8f23a109.ngrok.io/twitterGraph?device=web&user_id=" + url);
 
 
         mWebView.setWebViewClient(new WebViewClient() {
@@ -56,6 +56,10 @@ public class WorldGraph extends AppCompatActivity implements SendReceive.AsyncRe
             @Override
             public void onPageStarted(WebView view, String url, Bitmap facIcon) {
                 loadingFinished = false;
+                RelativeLayout rL = (RelativeLayout) findViewById(R.id.relative_layout);
+                ProgressBar pB = (ProgressBar) findViewById(R.id.progressBarForGraph);
+                rL.setVisibility(View.VISIBLE);
+                pB.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -163,7 +167,7 @@ public class WorldGraph extends AppCompatActivity implements SendReceive.AsyncRe
                             public void onClick(DialogInterface dialog, int which) {
 
                                 HashMap<String,String> map = new HashMap<>();
-                                map.put("url", "http://3bfb2be4.ngrok.io/logout");
+                                map.put("url", "http://8f23a109.ngrok.io/logout");
                                 map.put("device", "mobile");
                                 map.put("user_id", user_id);
                                 new SendReceive(WorldGraph.this).execute(map);

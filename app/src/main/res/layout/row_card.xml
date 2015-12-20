@@ -12,8 +12,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_eventImage"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@mipmap/ic_launcher"
             app:civ_border_width="2dp"
             app:civ_border_color="#80000000"/>
@@ -32,14 +32,6 @@
         android:layout_gravity="end"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/card_eventDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:gravity="end"
-        android:text="Common Interests"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/card_eventHandle"
@@ -49,7 +41,15 @@
         android:text="TwitterHandle"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-
+        <TextView
+            android:id="@+id/card_eventDescription"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:text="Common Interests"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     <!--<TextView-->
         <!--android:id="@+id/card_eventInterests"-->
         <!--android:layout_width="wrap_content"-->

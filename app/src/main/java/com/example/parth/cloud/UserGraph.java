@@ -39,7 +39,7 @@ public class UserGraph extends AppCompatActivity implements SendReceive.AsyncRes
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
         String url = sharedPref.getString("UserId","null");
-        mWebView.loadUrl("http://3bfb2be4.ngrok.io/socialGraph?device=web&user_id=" + url);
+        mWebView.loadUrl("http://8f23a109.ngrok.io/socialGraph?device=web&user_id=" + url);
 
 
         mWebView.setWebViewClient(new WebViewClient() {
@@ -58,20 +58,26 @@ public class UserGraph extends AppCompatActivity implements SendReceive.AsyncRes
             @Override
             public void onPageStarted(WebView view, String url, Bitmap facIcon) {
                 loadingFinished = false;
+                RelativeLayout rL = (RelativeLayout) findViewById(R.id.relative_layout);
+                ProgressBar pB = (ProgressBar) findViewById(R.id.progressBarForGraph);
+                rL.setVisibility(View.VISIBLE);
+                pB.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 if (!redirect) {
                     loadingFinished = true;
+                    RelativeLayout rL = (RelativeLayout) findViewById(R.id.relative_layout);
+                    ProgressBar pB = (ProgressBar) findViewById(R.id.progressBarForGraph);
+
+                    rL.setVisibility(View.GONE);
+                    pB.setVisibility(View.GONE);
+                    mWebView.setVisibility(View.VISIBLE);
                 }
 
                 if (loadingFinished && !redirect) {
-                    RelativeLayout rL = (RelativeLayout) findViewById(R.id.relative_layout);
-                    ProgressBar pB = (ProgressBar) findViewById(R.id.progressBarForGraph);
-                    mWebView.setVisibility(View.VISIBLE);
-                    rL.setVisibility(View.GONE);
-                    pB.setVisibility(View.GONE);
+
                 } else {
                     redirect = false;
                 }
@@ -129,7 +135,7 @@ public class UserGraph extends AppCompatActivity implements SendReceive.AsyncRes
                             public void onClick(DialogInterface dialog, int which) {
 
                                 HashMap<String,String> map = new HashMap<>();
-                                map.put("url", "http://3bfb2be4.ngrok.io/logout");
+                                map.put("url", "http://8f23a109.ngrok.io/logout");
                                 map.put("device", "mobile");
                                 map.put("user_id", user_id);
                                 new SendReceive(UserGraph.this).execute(map);

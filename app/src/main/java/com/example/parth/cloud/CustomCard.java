@@ -74,7 +74,7 @@ public class CustomCard extends Card {
             modDescription += "...";
         }
         tvDescription.setText("Common Interests: "+ modDescription);
-        tvHandle.setText("Twitter Handle: "+ event.getEventHandle());
+        tvHandle.setText(event.getEventHandle());
         //tvInterests.setText(event.getEventInterests());
         //tvImage.setImageResource(R.mipmap.ic_launcher);
         Picasso.with(getContext()).load(event.getEventImage()).resize(70, 70).centerCrop().into(tvImage);

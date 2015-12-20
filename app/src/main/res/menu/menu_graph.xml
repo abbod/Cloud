@@ -4,22 +4,22 @@
     >
 
     <item app:showAsAction="always"
-        android:icon="@drawable/ic_menu_camera"
+        android:icon="@drawable/profile"
         android:id="@+id/dashboard"
         android:title="Dashboard"
         />
     <item app:showAsAction="always"
-        android:icon="@drawable/ic_menu_gallery"
+        android:icon="@drawable/usergraph"
         android:id="@+id/user_graph"
         android:title="User Graph"
         />
     <item app:showAsAction="always"
-        android:icon="@drawable/ic_menu_gallery"
+        android:icon="@drawable/socialgraph"
         android:id="@+id/overall_graph"
         android:title="Worldwide Graph"
         />
     <item app:showAsAction="always"
-        android:icon="@drawable/ic_menu_gallery"
+        android:icon="@drawable/logout"
         android:id="@+id/logout"
         android:title="Logout"
         />
