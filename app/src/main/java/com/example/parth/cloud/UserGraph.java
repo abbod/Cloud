@@ -18,6 +18,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.HashMap;
 
@@ -35,55 +36,64 @@ public class UserGraph extends AppCompatActivity implements SendReceive.AsyncRes
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        mWebView.setInitialScale(1);
         mWebView.setWebViewClient(new WebViewClient());
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
         String url = sharedPref.getString("UserId","null");
-        mWebView.loadUrl("http://8f23a109.ngrok.io/socialGraph?device=web&user_id=" + url);
+        mWebView.loadUrl("http://0ecdc392.ngrok.io/socialGraph?device=web&user_id=" + url);
 
 
-        mWebView.setWebViewClient(new WebViewClient() {
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String urlNewString) {
-                if (!loadingFinished) {
-                    redirect = true;
-                }
-
-                loadingFinished = false;
-                view.loadUrl(urlNewString);
-                return true;
-            }
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap facIcon) {
-                loadingFinished = false;
-                RelativeLayout rL = (RelativeLayout) findViewById(R.id.relative_layout);
-                ProgressBar pB = (ProgressBar) findViewById(R.id.progressBarForGraph);
-                rL.setVisibility(View.VISIBLE);
-                pB.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                if (!redirect) {
-                    loadingFinished = true;
-                    RelativeLayout rL = (RelativeLayout) findViewById(R.id.relative_layout);
-                    ProgressBar pB = (ProgressBar) findViewById(R.id.progressBarForGraph);
-
-                    rL.setVisibility(View.GONE);
-                    pB.setVisibility(View.GONE);
-                    mWebView.setVisibility(View.VISIBLE);
-                }
-
-                if (loadingFinished && !redirect) {
-
-                } else {
-                    redirect = false;
-                }
-
-            }
-        });
+//        mWebView.setWebViewClient(new WebViewClient() {
+//
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String urlNewString) {
+//                if (!loadingFinished) {
+//                    redirect = true;
+//                }
+//
+//                loadingFinished = false;
+//                view.loadUrl(urlNewString);
+//                return true;
+//            }
+//
+//            @Override
+//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//                loadingFinished = false;
+//                RelativeLayout rL = (RelativeLayout) findViewById(R.id.relative_layout);
+//                ProgressBar pB = (ProgressBar) findViewById(R.id.progressBarForGraph);
+//                TextView tV = (TextView) findViewById(R.id.text_for_graph);
+//                tV.setVisibility(View.VISIBLE);
+//                rL.setVisibility(View.VISIBLE);
+//                pB.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                if (!redirect) {
+//                    loadingFinished = true;
+//                }
+//
+//                if (loadingFinished && !redirect) {
+//
+//                    RelativeLayout rL = (RelativeLayout) findViewById(R.id.relative_layout);
+//                    ProgressBar pB = (ProgressBar) findViewById(R.id.progressBarForGraph);
+//                    TextView tV = (TextView) findViewById(R.id.text_for_graph);
+//                    rL.setVisibility(View.GONE);
+//                    pB.setVisibility(View.GONE);
+//                    tV.setVisibility(View.GONE);
+//                    mWebView.setVisibility(View.VISIBLE);
+//                    //mWebView.postInvalidateDelayed(1500);
+//                } else {
+//                    redirect = false;
+//                }
+//
+//            }
+//        });
 
 
     }
@@ -135,7 +145,7 @@ public class UserGraph extends AppCompatActivity implements SendReceive.AsyncRes
                             public void onClick(DialogInterface dialog, int which) {
 
                                 HashMap<String,String> map = new HashMap<>();
-                                map.put("url", "http://8f23a109.ngrok.io/logout");
+                                map.put("url", "http://0ecdc392.ngrok.io/logout");
                                 map.put("device", "mobile");
                                 map.put("user_id", user_id);
                                 new SendReceive(UserGraph.this).execute(map);

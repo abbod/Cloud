@@ -208,7 +208,7 @@ public class  CardListActivity extends AppCompatActivity implements SendReceive.
                             public void onClick(DialogInterface dialog, int which) {
 
                                 HashMap<String,String> map = new HashMap<>();
-                                map.put("url", "http://8f23a109.ngrok.io/logout");
+                                map.put("url", "http://0ecdc392.ngrok.io/logout");
                                 map.put("device", "mobile");
                                 map.put("user_id", user_id);
                                 new SendReceive(CardListActivity.this).execute(map);
