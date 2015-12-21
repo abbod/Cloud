@@ -54,7 +54,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="0ecdc392.ngrok.io"
+                    android:host="@string/url_connection"
                     android:pathPrefix="/auth"
                     android:scheme="http" />
 

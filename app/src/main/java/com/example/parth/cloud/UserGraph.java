@@ -45,7 +45,7 @@ public class UserGraph extends AppCompatActivity implements SendReceive.AsyncRes
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "com.example.parth.cloud.PREFERENCE_FILE_KEY",Context.MODE_PRIVATE);
         String url = sharedPref.getString("UserId","null");
-        mWebView.loadUrl("http://0ecdc392.ngrok.io/socialGraph?device=web&user_id=" + url);
+        mWebView.loadUrl("http://"+ getString(R.string.url_connection) +"/socialGraph?device=web&user_id=" + url);
 
 
 //        mWebView.setWebViewClient(new WebViewClient() {
@@ -145,7 +145,7 @@ public class UserGraph extends AppCompatActivity implements SendReceive.AsyncRes
                             public void onClick(DialogInterface dialog, int which) {
 
                                 HashMap<String,String> map = new HashMap<>();
-                                map.put("url", "http://0ecdc392.ngrok.io/logout");
+                                map.put("url", "http://"+ getString(R.string.url_connection) +"/logout");
                                 map.put("device", "mobile");
                                 map.put("user_id", user_id);
                                 new SendReceive(UserGraph.this).execute(map);
